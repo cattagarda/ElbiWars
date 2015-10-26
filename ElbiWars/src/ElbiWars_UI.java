@@ -4,11 +4,13 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.LinkedList;
+import java.util.Random;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -20,6 +22,7 @@ public class ElbiWars_UI extends JPanel implements MouseListener,Runnable,Action
 
 	int MODE = -1;
 	int buildingType = -1;
+	int troopType = -1;
 	JPanel buildingsPanel = new JPanel();
 	JButton[] buildingsButton = new JButton[8];
 	JPanel troopsPanel = new JPanel();
@@ -31,7 +34,7 @@ public class ElbiWars_UI extends JPanel implements MouseListener,Runnable,Action
 	
 	@SuppressWarnings("deprecation")
 	public ElbiWars_UI(){
-		this.setPreferredSize(new Dimension(600,600));
+		this.setPreferredSize(new Dimension(1300,700));
 		this.setBackground(Color.GREEN);
 		this.addMouseListener(this);
 		
@@ -40,7 +43,6 @@ public class ElbiWars_UI extends JPanel implements MouseListener,Runnable,Action
 			buildingsButton[i] = new JButton(Integer.toString(i));
 			buildingsButton[i].addActionListener(this);
 			buildingsPanel.add(buildingsButton[i]);
-			
 		}
 		
 		troopsPanel.setLayout(new GridLayout(2,5));
@@ -76,16 +78,28 @@ public class ElbiWars_UI extends JPanel implements MouseListener,Runnable,Action
 		// TODO Auto-generated method stub
 		
 		if(MODE == 0){
-			if(builds.size() <= 2 && (arg0.getX() >=0 && arg0.getX() <= 600) && (arg0.getY() >=0 && arg0.getY() <= 600)){
+			if(builds.size() <= 2 && buildingType != -1){
 				ElbiWars_Building newBuilding = new ElbiWars_Building(arg0.getX(), arg0.getY(), buildingType);
 				newBuilding.setBounds(arg0.getX(), arg0.getY(), 30, 30);
 				builds.add(newBuilding);
 			}
 		}else if(MODE == 1){
-			chars.add(new ElbiWars_Troops(arg0.getX(), arg0.getY(), 100, 1));
-			Thread k = new Thread(chars.getLast());
-			k.start();
+			ElbiWars_Troops troop = new ElbiWars_Troops(arg0.getX(), arg0.getY(), troopType);
+			if(troopType != -1 && checkCollision(troop) == false){
+				Random random = new Random();
+				if((builds.size() * random.nextInt())%2 == 0){
+					troop.a = builds.getLast();
+				} else {
+					troop.a = builds.getFirst();
+				}
+				
+				chars.add(troop);
+				
+				Thread k = new Thread(chars.getLast());
+				k.start();
+			}
 		}
+		
 		this.revalidate();
 		this.repaint();
 	}
@@ -125,8 +139,10 @@ public class ElbiWars_UI extends JPanel implements MouseListener,Runnable,Action
 			    }
 		    }
 	  
-		    for(ElbiWars_Troops b: chars){
-		    	g2.drawOval(b.xcoordinate, b.ycoordinate,10,10);
+		    if(troopType != -1){
+			    for(ElbiWars_Troops b: chars){
+			    	g2.drawOval(b.xcoordinate, b.ycoordinate,10,10);
+			    }
 		    }
 		    
 	} 
@@ -161,6 +177,29 @@ public class ElbiWars_UI extends JPanel implements MouseListener,Runnable,Action
 				System.out.println("Building type = "+buildingType);
 			}
 		}
+		
+		for(int j=0; j<10; j++){
+			if(e.getSource() == troopsButton[j]){
+				troopType = j;
+				System.out.println("Troop type = "+troopType);
+			}
+		}
+		
+	}
+	
+	public boolean checkCollision(ElbiWars_Troops a){
+		Rectangle obj1 = a.getBounds();
+		
+		for(ElbiWars_Building z: builds){
+			Rectangle obj2 = z.getBounds();
+			
+			if(obj1.intersects(obj2)){
+				System.out.println("Troop "+a.type+" intersects with "+z.type);
+				return true;
+			}
+		}
+		
+		return false;
 		
 	}
 }
