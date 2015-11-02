@@ -1,5 +1,6 @@
 package eLBiWarsClient;
 
+import java.awt.Dimension;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -35,7 +36,7 @@ public class Client {
     PrintWriter writer;
 	
 	static JTextArea chatTextArea;
-	private JFrame frmClient;
+	JPanel frmClient;
 	private JPanel messagePanel;
 	private JLabel lblMessage;
 	private JTextField messageField;
@@ -53,39 +54,40 @@ public class Client {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Client window = new Client();
-					window.frmClient.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+//	public static void main(String[] args){
+//		EventQueue.invokeLater(new Runnable() {
+//		public void run() {
+//			try {
+//				Client window = new Client();
+//				window.frmClient.setVisible(true);
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//			}
+//		}
+//	});
+//	}
+	
 
 	/**
 	 * Create the application.
 	 */
-	public Client() {
-		initialize();
+	public Client(JPanel mainWindow) {
+		initialize(mainWindow);
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
-		frmClient = new JFrame();
-		frmClient.setResizable(false);
-		frmClient.setTitle("Client");
-		frmClient.setBounds(100, 100, 750, 450);
-		frmClient.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frmClient.getContentPane().setLayout(new BorderLayout(0, 0));
-		
+	private void  initialize(JPanel mainWindow) {
+		frmClient = new JPanel();
+//		frmClient.setResizable(false);
+//		frmClient.setTitle("Client");
+//		frmClient.setBounds(100, 100, 750, 450);
+//		frmClient.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmClient.setLayout(new BorderLayout(0, 0));
+//		
 		JPanel detailsPanel = new JPanel();
-		frmClient.getContentPane().add(detailsPanel, BorderLayout.NORTH);
+		frmClient.add(detailsPanel, BorderLayout.NORTH);
 		detailsPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
 		lblIpAddress = new JLabel("IP Address");
@@ -111,31 +113,39 @@ public class Client {
 		detailsPanel.add(playername);
 		playername.setColumns(10);
 		
-		btnConnect = new JButton("CONNECT");
-		btnConnect.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				connect(e);
-			}
-		});
-		detailsPanel.add(btnConnect);
+		//btnConnect = new JButton("CONNECT");
+		//btnConnect.addActionListener(new ActionListener() {
+			//public void actionPerformed(ActionEvent e) {
+				//connect(e);
+			//}
+		//});
+		//detailsPanel.add(btnConnect);
 		
+		mainWindow.add(frmClient);
+		
+	}
+	
+	public JPanel Initialize2() {
+		JPanel panel2 = new JPanel();
+		panel2.setPreferredSize(new Dimension(300,600));
+		messagePanel = new JPanel();
+		messagePanel.setPreferredSize(new Dimension(300,200));
 		btnDisconnect = new JButton("DISCONNECT");
 		btnDisconnect.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				closeConnection(e);
 			}
 		});
-		detailsPanel.add(btnDisconnect);
 		
-		messagePanel = new JPanel();
-		frmClient.getContentPane().add(messagePanel, BorderLayout.SOUTH);
+		
+		frmClient.add(messagePanel, BorderLayout.SOUTH);
 		
 		lblMessage = new JLabel("Message");
 		messagePanel.add(lblMessage);
 		
 		messageField = new JTextField();
 		messagePanel.add(messageField);
-		messageField.setColumns(50);
+		messageField.setColumns(20);
 		
 		btnSend = new JButton("Send");
 		btnSend.addActionListener(new ActionListener() {
@@ -144,6 +154,9 @@ public class Client {
 			}
 		});
 		messagePanel.add(btnSend);
+		messagePanel.add(btnDisconnect);
+			
+		panel2.add(messagePanel);
 		
 		chatTextArea = new JTextArea();
 		chatTextArea.setEditable(false);
@@ -154,13 +167,17 @@ public class Client {
 		chatPanel = new JPanel(new BorderLayout(0, 0));
 		chatPanel.setBorder(new EmptyBorder(8, 8, 8, 8));
 		chatPanel.add(scrollPane);
-		frmClient.getContentPane().add(chatPanel, BorderLayout.CENTER);
+		panel2.add(chatPanel);
+		
+		return panel2;
 	}
-	
-	private void connect(ActionEvent e){
+	protected boolean connect(ActionEvent e){
+		boolean connect = false;
+		System.out.println("PASOK");
 		address = ipAddress.getText();
 		if (isConnected == false){
-            username = playername.getText();
+			System.out.println("PASOK2");
+			username = playername.getText();
             playername.setEditable(false);
 
             try{
@@ -171,18 +188,26 @@ public class Client {
                 writer.println(username + ":has connected.:Connect");
                 writer.flush(); 
                 isConnected = true; 
+                connect = true;
             } 
             catch (Exception ex){
-                chatTextArea.append("Cannot Connect! Try Again. \n");
-                playername.setEditable(true);
+               System.out.println("Cannot Connect! Try Again. \n");
+                connect = false;
+                return(connect);
+                //playername.setEditable(true);
             }
             
             ListenThread();
             
         } 
 		else if (isConnected == true){
-            chatTextArea.append("You are already connected. \n");
+           System.out.println("You are already connected. \n");
+            connect = true;
+            return(connect);
         }
+		return connect;
+		
+			
 	}
 	
 	private void closeConnection(ActionEvent e){
