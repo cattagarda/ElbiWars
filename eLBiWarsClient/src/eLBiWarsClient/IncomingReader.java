@@ -11,7 +11,7 @@ public class IncomingReader implements Runnable{
         try{
             while ((stream = Client.reader.readLine()) != null){
                  data = stream.split(":");
-
+                 
                  if (data[2].equals(chat)){
                     Client.chatTextArea.append(data[0] + ": " + data[1] + "\n");
                     Client.chatTextArea.setCaretPosition(Client.chatTextArea.getDocument().getLength());

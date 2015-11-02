@@ -33,6 +33,8 @@ public class ClientHandler implements Runnable{
             while((message = reader.readLine()) != null){
                 
             	Server.logTextArea.append("Received: " + message + "\n");
+            	System.out.println(message.length());
+            	Server.demo.updateData(message.length());
                 data = message.split(":");
                 
                 for (String token:data) {

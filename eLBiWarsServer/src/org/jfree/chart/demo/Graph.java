@@ -19,6 +19,8 @@ import org.jfree.data.xy.XYDataset;
 import org.jfree.ui.ApplicationFrame;
 import org.jfree.ui.RefineryUtilities;
 
+import eLBiWarsServer.ClientHandler;
+
 /**
  * A demonstration application showing a time series chart where you can dynamically add
  * (random) data by clicking on a button.
@@ -51,7 +53,7 @@ public class Graph extends ApplicationFrame implements ActionListener {
 
         final JPanel content = new JPanel(new BorderLayout());
         content.add(chartPanel);
-        content.add(button, BorderLayout.SOUTH);
+       // content.add(button, BorderLayout.SOUTH);
         chartPanel.setPreferredSize(new java.awt.Dimension(500, 270));
         setContentPane(content);
 
@@ -66,7 +68,7 @@ public class Graph extends ApplicationFrame implements ActionListener {
      */
     private JFreeChart createChart(final XYDataset dataset) {
         final JFreeChart result = ChartFactory.createTimeSeriesChart(
-            "Dynamic Data Demo", 
+            "Client Packets", 
             "Time", 
             "Value",
             dataset, 
@@ -101,6 +103,7 @@ public class Graph extends ApplicationFrame implements ActionListener {
      */
     public void actionPerformed(final ActionEvent e) {
         if (e.getActionCommand().equals("ADD_DATA")) {
+        	
             final double factor = 0.90 + 0.2 * Math.random();
             this.lastValue = this.lastValue * factor;
             final Millisecond now = new Millisecond();
@@ -108,18 +111,19 @@ public class Graph extends ApplicationFrame implements ActionListener {
             this.series.add(new Millisecond(), this.lastValue);
         }
     }
+    
+    public void updateData(double num) {
+        
+        this.series.add(new Millisecond(), num);
+    }
 
     /**
      * Starting point for the demonstration application.
      *
      * @param args  ignored.
      */
+    
     public static void main(final String[] args) {
-
-        final Graph demo = new Graph("Dynamic Data Demo");
-        demo.pack();
-        RefineryUtilities.centerFrameOnScreen(demo);
-        demo.setVisible(true);
 
     }
 

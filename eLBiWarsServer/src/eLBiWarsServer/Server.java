@@ -13,6 +13,9 @@ import java.awt.FlowLayout;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import org.jfree.chart.demo.Graph;
+import org.jfree.ui.RefineryUtilities;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.io.PrintWriter;
@@ -32,6 +35,7 @@ public class Server {
 	private JButton btnClear;
 	static JTextArea logTextArea;
 	private JPanel logPanel;
+	static Graph demo;
 	
 	/**
 	 * Launch the application.
@@ -42,6 +46,13 @@ public class Server {
 				try {
 					Server window = new Server();
 					window.frmServer.setVisible(true);
+					
+					demo = new Graph("Data packets recieved from client");
+			        demo.pack();
+			        RefineryUtilities.centerFrameOnScreen(demo);
+			        demo.setVisible(true);
+
+			        
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -54,6 +65,9 @@ public class Server {
 	 */
 	public Server() {
 		initialize();
+		
+
+        
 	}
 
 	/**

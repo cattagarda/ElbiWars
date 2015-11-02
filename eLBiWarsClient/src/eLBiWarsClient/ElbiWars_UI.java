@@ -40,7 +40,7 @@ public class ElbiWars_UI extends JPanel implements MouseListener,Runnable,Action
 	static Client window;
 	@SuppressWarnings("deprecation")
 	public ElbiWars_UI(){
-		this.setPreferredSize(new Dimension(1000,600));
+		this.setPreferredSize(new Dimension(600,600));
 		this.setBackground(Color.GREEN);
 		this.addMouseListener(this);
 		
