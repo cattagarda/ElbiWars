@@ -6,7 +6,12 @@ import java.net.Socket;
 import java.util.ArrayList;
 
 public class ServerStart implements Runnable{
-
+	int portNum = 1984;
+	
+	public ServerStart(int portnum){
+		this.portNum = portnum;
+	}
+	
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
@@ -14,7 +19,7 @@ public class ServerStart implements Runnable{
         Server.users = new ArrayList();
         
         try{
-        	ServerSocket sSocket = new ServerSocket(1984);
+        	ServerSocket sSocket = new ServerSocket(this.portNum);
         	while(true){
         		Socket cSocket = sSocket.accept();
             	
@@ -23,12 +28,16 @@ public class ServerStart implements Runnable{
 
     			Thread listener = new Thread(new ClientHandler(cSocket, writer));
     			listener.start();
-    			Server.logTextArea.append("Got a connection. \n");
+//    			Server.logTextArea.append("Got a connection. \n");
+    			System.out.println("Got a conn~");
+    			
+    			
         	}
         	
         }
         catch(Exception e){
-        	Server.logTextArea.append("Error making a connection. \n");
+//        	Server.logTextArea.append("Error making a connection. \n");
+        	e.printStackTrace();
         }
 	}
 

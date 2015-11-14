@@ -1,10 +1,6 @@
 package eLBiWarsClient;
 
 import java.awt.Dimension;
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-
 import java.awt.BorderLayout;
 
 import javax.swing.JPanel;
@@ -85,7 +81,7 @@ public class Client {
 //		frmClient.setBounds(100, 100, 750, 450);
 //		frmClient.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmClient.setLayout(new BorderLayout(0, 0));
-//		
+
 		JPanel detailsPanel = new JPanel();
 		frmClient.add(detailsPanel, BorderLayout.NORTH);
 		detailsPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));

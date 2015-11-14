@@ -27,8 +27,7 @@ public class Server {
 	static ArrayList clientOutput;
 	static ArrayList<String> users;
 	
-	
-	private JFrame frmServer;
+	JFrame frmServer;
 	private JPanel btnPanel;
 	private JButton btnStart;
 	private JButton btnEnd;
@@ -65,9 +64,6 @@ public class Server {
 	 */
 	public Server() {
 		initialize();
-		
-
-        
 	}
 
 	/**
@@ -123,7 +119,7 @@ public class Server {
 	}
 	
 	private void startServer(ActionEvent e){
-		Thread starter = new Thread(new ServerStart());
+		Thread starter = new Thread(new ServerStart(1985));
         starter.start();
         
         logTextArea.append("Server started...\n");

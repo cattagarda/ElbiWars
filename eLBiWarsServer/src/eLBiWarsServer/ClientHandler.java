@@ -58,7 +58,7 @@ public class ClientHandler implements Runnable{
             } 
          } 
          catch (Exception ex){
-        	Server.logTextArea.append("Lost a connection. \n");
+//        	Server.logTextArea.append("Lost a connection. \n");
 //            ex.printStackTrace();
             Server.clientOutput.remove(writer);
          } 
