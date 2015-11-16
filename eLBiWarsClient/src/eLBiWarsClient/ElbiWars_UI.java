@@ -8,16 +8,23 @@ import java.awt.EventQueue;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.Rectangle;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.File;
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.Random;
 
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -41,7 +48,7 @@ public class ElbiWars_UI extends JPanel implements MouseListener,Runnable,Action
 	@SuppressWarnings("deprecation")
 	public ElbiWars_UI(){
 		this.setPreferredSize(new Dimension(600,600));
-		this.setBackground(Color.GREEN);
+		//this.setBackground(Color.GREEN);
 		this.addMouseListener(this);
 		
 		buildingsPanel.setLayout(new GridLayout(1,5));
@@ -175,6 +182,15 @@ public class ElbiWars_UI extends JPanel implements MouseListener,Runnable,Action
 		super.paintComponent(g);
 	    //Convert to Java2D Object
 	    Graphics2D g2 = (Graphics2D) g;
+	    Image img = null;
+		try {
+			img = ImageIO.read(new File("Images/grass.png"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	    
+	    g.drawImage(img, 0, 0, null);
 	    
 		    if(buildingType != -1){
 		    	for(ElbiWars_Building c: builds){
@@ -187,6 +203,8 @@ public class ElbiWars_UI extends JPanel implements MouseListener,Runnable,Action
 			    	g2.drawOval(b.xcoordinate, b.ycoordinate,10,10);
 			    }
 		    }
+		    
+	       
 		    
 	} 
 	

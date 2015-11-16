@@ -174,7 +174,6 @@ public class Client {
 		if (isConnected == false){
 			System.out.println("PASOK2");
 			username = playername.getText();
-            playername.setEditable(false);
 
             try{
                 socket = new Socket(address, port);
@@ -185,6 +184,7 @@ public class Client {
                 writer.flush(); 
                 isConnected = true; 
                 connect = true;
+                playername.setEditable(false);
             } 
             catch (Exception ex){
                System.out.println("Cannot Connect! Try Again. \n");

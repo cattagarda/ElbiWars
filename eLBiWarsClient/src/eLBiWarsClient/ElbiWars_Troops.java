@@ -18,42 +18,30 @@ public class ElbiWars_Troops extends JPanel implements Runnable {
 	int quantity = 0;
 	int status = 0;
 	int hp = 1000;
+	int owner = 0;
 	double range = 10.0;
 	ElbiWars_Building a;
 	
-	public ElbiWars_Troops(int xcoordinate, int ycoordinate, int type) {
+	public ElbiWars_Troops(int xcoordinate, int ycoordinate, int type, int owner) {
 		this.xcoordinate = xcoordinate;
 		this.ycoordinate = ycoordinate;
 		this.type = type;
+		this.owner = owner;
 	}
 
 	public Rectangle getBounds(){
 		return new Rectangle(xcoordinate, ycoordinate, width, height);
 	}
 	
-	public void computepos(){	
-		try{
-			float slope=(a.ycoordinate-this.ycoordinate)/(a.xcoordinate-this.xcoordinate);
-			float b=a.ycoordinate-(a.xcoordinate*slope);
-			if (a.xcoordinate>this.xcoordinate){
-				this.xcoordinate++;
-			}else{
-				this.xcoordinate--;
-			}
-			this.ycoordinate=(int) (((slope)*this.xcoordinate)+b);
-			if(Math.sqrt((a.xcoordinate-this.xcoordinate)*(a.xcoordinate-this.xcoordinate)+(a.ycoordinate-this.ycoordinate)*(a.ycoordinate-this.ycoordinate))<range+20){
-					this.status = 1;
-			}
-		}catch(Exception e){
-			
-		}
+	
 
-}
+
 	
 	@Override
 	public void run() {
 		while(true){
-			this.computepos();
+			this.xcoordinate++;
+			this.ycoordinate++;
 			try {
 				Thread.sleep(this.speed);
 			} catch (InterruptedException e) {
