@@ -31,7 +31,6 @@ public class ElbiWars_ChatClient extends Thread
 
 class ClientGUI{
      
-        
         public ClientGUI(String[] args){
         
         try{
