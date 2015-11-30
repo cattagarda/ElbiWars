@@ -31,7 +31,6 @@ public class ElbiWars_Troops extends JPanel implements Runnable {
 	String filename = "";
 	ElbiWars_Building a;
 	int owner = 0;
-	ImageIcon img;
 	
 	public ElbiWars_Troops(int xcoordinate, int ycoordinate, int type, int owner) {
 		this.xcoordinate = xcoordinate;
@@ -46,6 +45,9 @@ public class ElbiWars_Troops extends JPanel implements Runnable {
 	public void run() {
 		
 		while(true){
+			
+			this.xcoordinate++;
+			this.ycoordinate++;
 			try {
 				Thread.sleep(this.speed);
 			} catch (InterruptedException e) {
