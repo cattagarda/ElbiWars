@@ -1,4 +1,5 @@
 import java.awt.Graphics;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -9,7 +10,9 @@ import java.util.LinkedList;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 
 public class ElbiWars_GameBase extends ElbiWars_Panel implements ActionListener, Runnable, MouseListener{
@@ -19,10 +22,11 @@ public class ElbiWars_GameBase extends ElbiWars_Panel implements ActionListener,
 	ArrayList<ElbiWars_Building> team1 = new ArrayList<ElbiWars_Building>();
 	LinkedList<ElbiWars_Building> team2 = new LinkedList<ElbiWars_Building>();
 	LinkedList<ElbiWars_Building> team3 = new LinkedList<ElbiWars_Building>();
+	int troopType = -1;
 	
 	public ElbiWars_GameBase(String filename) {
 		super(filename);
-		
+
 		team1.add(new ElbiWars_Building(10,0,1,1));
 		team1.add(new ElbiWars_Building(100,10,2,1));
 		team1.add(new ElbiWars_Building(10,80,3,1));
@@ -83,8 +87,6 @@ public class ElbiWars_GameBase extends ElbiWars_Panel implements ActionListener,
 	    	g.drawOval(b.xcoordinate, b.ycoordinate,10,10);
 	    }
 	    
-	    revalidate();
-	    repaint();
 	    
 	}
 	
