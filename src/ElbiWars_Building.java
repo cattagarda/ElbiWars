@@ -33,7 +33,7 @@ public class ElbiWars_Building extends ElbiWars_Troops implements Runnable{
 			switch(this.type){
 				case 1: this.imageIcon = new ImageIcon(ElbiWars_GameBase.class.getResource("Images/physci.gif"));
 					this.width = 60;
-					this.height = 60;
+					this.height = 50;
 					break;
 				case 2: this.imageIcon = new ImageIcon(ElbiWars_GameBase.class.getResource("Images/PHD Tower.gif"));
 					this.width = 40;
