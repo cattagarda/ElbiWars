@@ -35,40 +35,45 @@ public class ElbiWars_UI extends JPanel implements ActionListener{
 		this.setLayout(new CardLayout());
 		
 		front = new ElbiWars_Panel("login.png");
-		front.setLayout(new GridLayout());
+		front.setLayout(new BorderLayout());
 		
 		button.addActionListener(this);
+		button.setPreferredSize(new Dimension(550,50));
 		button.setAlignmentX(JComponent.CENTER_ALIGNMENT);
 		JLabel hi = new JLabel("Yo mamma");
+		hi.setPreferredSize(new Dimension(550,50));
 		hi.setAlignmentX(JComponent.CENTER_ALIGNMENT);
 		
 		JTextField ipAddress = new JTextField("IP Address");
 		ipAddress.setToolTipText("IP Address");
-		ipAddress.setPreferredSize(new Dimension(100,20));
+		ipAddress.setPreferredSize(new Dimension(550,50));
 		ipAddress.setBackground(new Color(255,255,255,100));
 		
 		JTextField port = new JTextField("Port number");
-		port.setPreferredSize(new Dimension(100,20));
+		port.setPreferredSize(new Dimension(500,50));
 		port.setBackground(new Color(255,255,255,100));
 		
-		Box extraPanel = new Box(BoxLayout.Y_AXIS);
+		JPanel extraPanel = new JPanel();
 		extraPanel.setPreferredSize(new Dimension(200,200));
+		extraPanel.setBackground(new Color(255,255,255,100));
 		
-		extraPanel.add( Box.createVerticalGlue() );
+		//extraPanel.add( Box.createVerticalGlue() );
 		extraPanel.add(hi);
 		extraPanel.add(ipAddress);
 		extraPanel.add(port);
 		extraPanel.add(button);
-		extraPanel.add( Box.createVerticalGlue() );
+		//extraPanel.add( Box.createVerticalGlue() );
 		
 		JPanel chu = new JPanel();
 		chu.setPreferredSize(new Dimension(1024, 200));
+		chu.setBackground(new Color(255,255,255,0));
 		JPanel chu2 = new JPanel();
 		chu2.setPreferredSize(new Dimension(1024, 200));
+		chu2.setBackground(new Color(255,255,255,0));
 		
-		front.add(chu);
+		front.add(chu, BorderLayout.NORTH);
 		front.add(extraPanel);
-		front.add(chu2);
+		front.add(chu2, BorderLayout.SOUTH);
 		
 		second = new ElbiWars_Panel("grass.png");
 		JLabel hello = new JLabel("Yo~");
