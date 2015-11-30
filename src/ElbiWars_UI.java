@@ -5,7 +5,6 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.MalformedURLException;
@@ -13,8 +12,6 @@ import java.net.URL;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
@@ -32,8 +29,6 @@ public class ElbiWars_UI extends JPanel implements ActionListener{
 	ElbiWars_GameBase mainGame;
 	JPanel mainChat;
 	static URL url = null;
-	JPanel troopPanel = new JPanel();
-	JButton troopButton[] = new JButton[10];
 	
 	public ElbiWars_UI(){
 		this.setPreferredSize(new Dimension(1024,700));
@@ -95,18 +90,8 @@ public class ElbiWars_UI extends JPanel implements ActionListener{
 		mainChat.setBackground(new Color(255,255,255,100));
 		mainChat.setPreferredSize(new Dimension(220, 700));
 		
-		troopPanel.setLayout(new GridLayout(1,10));
-		for(int u=0; u<10; u++){
-			troopButton[u] = new JButton();
-			troopButton[u].setPreferredSize(new Dimension(50,80));
-			setImg(troopButton[u], u);
-			troopButton[u].addActionListener(this);
-			troopPanel.add(troopButton[u]);
-		}
-		
 		second.add(mainGame, BorderLayout.CENTER);
 		second.add(mainChat, BorderLayout.EAST);
-		second.add(troopPanel, BorderLayout.SOUTH);
 		
 		this.add(front, "Login page");
 		this.add(second, "Game");
@@ -142,53 +127,8 @@ public class ElbiWars_UI extends JPanel implements ActionListener{
 			
 			revalidate();
 			repaint();
-		} else {
-			for(int troopBtn = 0; troopBtn < 10; troopBtn++){
-				if(e.getSource() == troopButton[troopBtn]){
-					System.out.println(troopBtn);
-				}
-			}
 		}
 	}
 	
-	public void setImg(JButton button, int index) { 
-		// TODO Auto-generated method stub
-		try{
-			switch(index){
-				case 0:
-					button.setIcon(new ImageIcon(ElbiWars_UI.class.getResource("Images/Freshman.gif")));
-					break;
-				case 1:
-					button.setIcon(new ImageIcon(ElbiWars_UI.class.getResource("Images/off.png"))); 
-					break;
-				case 2:
-					button.setIcon(new ImageIcon(ElbiWars_UI.class.getResource("Images/off.png"))); 
-					break;
-				case 3:
-					button.setIcon(new ImageIcon(ElbiWars_UI.class.getResource("Images/off.png"))); 
-					break;
-				case 4:
-					button.setIcon(new ImageIcon(ElbiWars_UI.class.getResource("Images/off.png"))); 
-					break;
-				case 5:
-					button.setIcon(new ImageIcon(ElbiWars_UI.class.getResource("Images/off.png"))); 
-					break;
-				case 6:
-					button.setIcon(new ImageIcon(ElbiWars_UI.class.getResource("Images/off.png"))); 
-					break;
-				case 7:
-					button.setIcon(new ImageIcon(ElbiWars_UI.class.getResource("Images/off.png"))); 
-					break;
-				case 8:
-					button.setIcon(new ImageIcon(ElbiWars_UI.class.getResource("Images/off.png"))); 
-					break;
-				case 9:
-					button.setIcon(new ImageIcon(ElbiWars_UI.class.getResource("Images/off.png"))); 
-					break;
-				case 10:
-					button.setIcon(new ImageIcon(ElbiWars_UI.class.getResource("Images/off.png"))); 
-					break;
-			}
-		} catch (Exception e){ }
-	}
+	
 }
