@@ -3,22 +3,20 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
 import javax.swing.Icon;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 
 
 public class ElbiWars_GameBase extends ElbiWars_Panel implements ActionListener, Runnable, MouseListener{
 	
 	private static final long serialVersionUID = 1L;
 	LinkedList<ElbiWars_Troops> characters = new LinkedList<ElbiWars_Troops>();
-	ArrayList<ElbiWars_Building> team1 = new ArrayList<ElbiWars_Building>();
-	LinkedList<ElbiWars_Building> team2 = new LinkedList<ElbiWars_Building>();
-	LinkedList<ElbiWars_Building> team3 = new LinkedList<ElbiWars_Building>();
+	static ArrayList<ElbiWars_Building> team1 = new ArrayList<ElbiWars_Building>();
+	static LinkedList<ElbiWars_Building> team2 = new LinkedList<ElbiWars_Building>();
+	static LinkedList<ElbiWars_Building> team3 = new LinkedList<ElbiWars_Building>();
+	static int currentTroop = -1;
 	
 	public ElbiWars_GameBase(String filename) {
 		super(filename);
@@ -80,7 +78,7 @@ public class ElbiWars_GameBase extends ElbiWars_Panel implements ActionListener,
 	    }
 		
 	    for(ElbiWars_Troops b: characters){
-	    	g.drawOval(b.xcoordinate, b.ycoordinate,10,10);
+	    	 g.drawImage(b.imageIcon.getImage(), (int)b.xcoordinate, (int)b.ycoordinate, b.width, b.height, null);
 	    }
 	    
 	    revalidate();
@@ -90,14 +88,16 @@ public class ElbiWars_GameBase extends ElbiWars_Panel implements ActionListener,
 	
 	public void mouseClicked(MouseEvent arg0) {
 		// TODO Auto-generated method stub
-		
-		ElbiWars_Troops troop = new ElbiWars_Troops(arg0.getX(), arg0.getY(), 5000, 1);
-		System.out.println(arg0.getX()+" "+arg0.getY());
-		characters.add(troop);
-		
-		Thread k = new Thread(characters.getLast());
-		k.start();
-		
+		if(currentTroop != -1){
+			ElbiWars_Troops troop = new ElbiWars_Troops(arg0.getX(), arg0.getY(), currentTroop, 1);
+			System.out.println(arg0.getX()+" "+arg0.getY());
+			System.out.println("Location reg: "+troop.xcoordinate+" "+troop.ycoordinate);
+			characters.add(troop);
+			
+			Thread k = new Thread(characters.getLast());
+			k.start();
+		}
+	
 		this.revalidate();
 		this.repaint();
 	}

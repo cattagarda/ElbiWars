@@ -21,11 +21,29 @@ public class ElbiWars_Building extends ElbiWars_Troops implements Runnable{
 		this.team = owner;
 		
 		this.setBuilding();
+		this.setHP();
 	}
 	
 	@Override
 	public void run() {
 		
+	}
+	
+	private void setHP(){
+		switch(this.type){
+			case 1: this.hp = 2000;
+					break;
+			case 2: this.hp = 1500;
+					break;
+			case 3: this.hp = 1000;
+					break;
+			case 4: this.hp = 1000;
+					break;
+			case 5: this.hp = 1000;
+					break;
+			case 6: this.hp = 500;
+					break;
+		}
 	}
 	
 	private void setBuilding(){
